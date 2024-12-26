@@ -42,7 +42,7 @@ const videoSchema = new mongoose.Schema({
     default: 0 
   },
   comments: [{ 
-    type: mongoose.Schema.Types.ObjectId, 
+    type: String , 
     ref: 'Comment' 
   }],
 });

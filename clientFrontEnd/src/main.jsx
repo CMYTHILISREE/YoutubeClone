@@ -6,7 +6,7 @@ import Home from "./pages/Home.jsx";
 import Video from "./pages/Video.jsx";
 import Channel from "./pages/Channel.jsx";
 import Register from "./pages/Register.jsx";
-import CreateNewChannel from "./pages/CreateNewChannel.jsx";
+import CreateChannel from "./pages/CreateChannel.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import "./index.css";
@@ -40,8 +40,8 @@ const appRouter = createBrowserRouter([
         element:<Channel/>,
       },
       {
-        path: "/createnewchannel",
-        element:<CreateNewChannel/>,
+        path: "/createChannel",
+        element:<CreateChannel/>,
       }
     ],
   }

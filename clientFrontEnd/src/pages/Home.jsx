@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchVideos } from '../apiService.js';
+import { fetchVideos,createChannel } from '../apiService.js';
 import VideoCard from '../Components/VideoCard.jsx';
 import youtube2 from "../assets/youtube2.svg";
 import Loading from "../assets/Loading.gif";
@@ -35,19 +35,22 @@ function Home() {
             try {
                 const res = await fetchVideos();
                 setVideos(res.data);
-                setOriginalVideos(res.data);
+                setOriginalVideos(res.data)
             } finally {
                 setLoading(false);
             }
         }
         loadVideos();
+
+
     }, []);
 
     useEffect(() => {
         const uniqueCategories = ['All', ...new Set(videos.map(video => video.category))];
         setCategories(uniqueCategories);
-    }, [videos]);
+    }, [videos])
 
+    // Toggle sidebar visibility
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
@@ -55,8 +58,9 @@ function Home() {
     const handleSearch = () => {
         if (searchQuery.trim() === '') {
             setVideos(originalVideos);
+            console.log("onh");
         } else {
-            const filtered = originalVideos.filter(video =>
+            const filtered = videos.filter(video =>
                 (video.title.toLowerCase().includes(searchQuery.toLowerCase()) || video.channelName.toLowerCase().includes(searchQuery.toLowerCase())) &&
                 (selectedCategory === 'All' || video.category === selectedCategory)
             );
@@ -64,27 +68,43 @@ function Home() {
         }
     };
 
+    // Update filtered videos when category changes
     const handleCategoryClick = (category) => {
         setSelectedCategory(category);
-        handleSearch();
+        const filtered = videos.filter(video =>
+            (category === 'All' || video.category === category) &&
+            (video.title.toLowerCase().includes(searchQuery.toLowerCase()) || video.channelName.toLowerCase().includes(searchQuery.toLowerCase()))
+        );
+        setVideos(filtered);
     };
 
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+    // Function to open modal
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
 
-    const handleLogin = (user) => {
-        setLoggedInUser(user.data.user);
+    // Function to close modal
+    const closeModal = () => {
         setIsModalOpen(false);
     };
 
+    // Handle successful login
+    const handleLogin = (user) => {
+        setLoggedInUser(user.data.user);
+        setIsModalOpen(false); // Close the modal on successful login
+    };
+
+    // Toggle profile options dropdown
     const toggleProfileOptions = () => {
         setShowProfileOptions(!showProfileOptions);
     };
 
+    // Logout function
     const handleLogout = () => {
         setLoggedInUser(null);
-        setShowProfileOptions(false);
+        setShowProfileOptions(false); // Close the dropdown on logout
     };
+    
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -113,7 +133,10 @@ function Home() {
                         />
                         {showProfileOptions && (
                             <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg">
-                                <button className="w-full px-4 py-2 text-left hover:bg-gray-100">Create Channel</button>
+                                <button
+                                    className="w-full px-4 py-2 text-left hover:bg-gray-100"
+                                   
+                                >Create Channel</button>
                                 <button
                                     className="w-full px-4 py-2 text-left hover:bg-gray-100"
                                     onClick={handleLogout}

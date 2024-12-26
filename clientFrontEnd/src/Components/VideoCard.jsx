@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import YouTubePlayer from '../Components/YoutubePlayer';
@@ -33,7 +34,7 @@ function VideoCard({ video, loggedInUser, Allvideo }) {
     >
       <div className="aspect-w-16 aspect-h-9">
         {hoveredVideoId === video._id ? (
-          <YouTubePlayer videoId={video._id} />
+          <YouTubePlayer videoId={video.videoUrl} />
         ) : (
           <img
             src={video.thumbnailUrl}

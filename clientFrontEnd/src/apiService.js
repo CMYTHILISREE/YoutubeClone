@@ -19,7 +19,7 @@ export const fetchVideo = (videoId) => api.get(`/videos/${videoId}`);
 export const postVideos = () => api.post('/videos');
 
 // Channel endpoints
-export const createNewChannel = (data) => api.post('/channels', data);
+export const createChannel = (data) => api.post('/channels', data);
 export const fetchChannel = (channelId) => api.get(`/channels/${channelId}`);
 
 // Comment endpoints

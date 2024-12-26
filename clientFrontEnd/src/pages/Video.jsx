@@ -94,7 +94,7 @@ function Video() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="video-section bg-white shadow-lg rounded-lg overflow-hidden">
-      <YouTubePlayer videoId={video._id} />
+      <YouTubePlayer videoId={video.videoUrl} />
 
         <div className="p-4">
           <h2 className="video-title text-2xl font-semibold my-4">{video.title}</h2>
