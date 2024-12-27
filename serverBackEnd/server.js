@@ -19,8 +19,7 @@ app.use(cors());
 app.use('/api/auth', authRoutes);
 app.use('/api/videos', videoRoutes);
 app.use('/api/channels', channelRoutes);
-// In app.js, change the commentRoutes path
-app.use('/api/videos/:videoId/comments', commentRoutes);
+app.use('/api/comments', commentRoutes);
 
 
 const PORT = process.env.PORT || 5000;

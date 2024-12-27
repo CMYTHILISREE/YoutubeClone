@@ -23,7 +23,7 @@ export const createChannel = (data) => api.post('/channels', data);
 export const fetchChannel = (channelId) => api.get(`/channels/${channelId}`);
 
 // Comment endpoints
-export const addComment = (videoId, data) => api.post(`/videos/${videoId}/comments`, data);
+export const addComment = (videoId, data) => api.post(`/comments/${videoId}`, data);
 export const getComments = (videoId) => api.get(`/videos/${videoId}/comments`);
 export const updateComment = (commentId, data) => api.put(`/comments/${commentId}`, data);
 export const deleteComment = (commentId) => api.delete(`/comments/${commentId}`);
