@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import authRoutes from "./router/authRoutes.js";
 import channelRoutes from "./router/channelRoutes.js";
-import commentRoutes from "./router/commentRoutes.js";
+import { commentRoute } from './router/commentRoutes.js';
 import videoRoutes from "./router/videoRoutes.js";
 import dataBase from './config/dataBase.js';
 
@@ -19,10 +19,12 @@ app.use(cors());
 app.use('/api/auth', authRoutes);
 app.use('/api/videos', videoRoutes);
 app.use('/api/channels', channelRoutes);
-app.use('/api/comments', commentRoutes);
+// app.use('/api/comments', commentRoutes);
+commentRoute(app)
 
 
-const PORT = process.env.PORT || 5000;
+
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on PORT ${PORT}`);
 });

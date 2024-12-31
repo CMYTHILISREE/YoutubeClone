@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { login } from "../apiService.js";
 import youtube2 from "../assets/youtube2.svg";
-import RegisterPage from './Register.jsx';
+import Register from './Register.jsx';
 
 const SignIn = ({ isOpen, onClose, onLogin }) => {
     const [isCreatingAccount, setIsCreatingAccount] = useState(false);
@@ -39,7 +39,7 @@ const SignIn = ({ isOpen, onClose, onLogin }) => {
                         className="w-44 mx-auto mb-4"
                     />
                     {isCreatingAccount ? (
-                        <RegisterPage
+                        <Register
                             onClose={onClose}
                             switchToLogin={toggleCreateAccount}
                         />

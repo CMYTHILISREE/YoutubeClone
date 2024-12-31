@@ -18,6 +18,8 @@ import { IoGameControllerOutline } from "react-icons/io5";
 import { BiMoviePlay } from "react-icons/bi";
 
 function Home() {
+    const token=localStorage.getItem('token');
+    const userName=localStorage.getItem('username');
     const [videos, setVideos] = useState([]);
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [originalVideos, setOriginalVideos] = useState([]);
@@ -28,6 +30,7 @@ function Home() {
     const [loading, setLoading] = useState(true);
     const [loggedInUser, setLoggedInUser] = useState(null);
     const [showProfileOptions, setShowProfileOptions] = useState(false);
+   
 
     useEffect(() => {
         async function loadVideos() {
@@ -71,8 +74,12 @@ function Home() {
     // Update filtered videos when category changes
     const handleCategoryClick = (category) => {
         setSelectedCategory(category);
+        if(category === "All"){
+            setVideos(originalVideos);
+            return;
+        }
         const filtered = videos.filter(video =>
-            (category === 'All' || video.category === category) &&
+            ( video.category === category) &&
             (video.title.toLowerCase().includes(searchQuery.toLowerCase()) || video.channelName.toLowerCase().includes(searchQuery.toLowerCase()))
         );
         setVideos(filtered);
@@ -99,10 +106,15 @@ function Home() {
         setShowProfileOptions(!showProfileOptions);
     };
 
+
     // Logout function
     const handleLogout = () => {
+        
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
         setLoggedInUser(null);
-        setShowProfileOptions(false); // Close the dropdown on logout
+        setShowProfileOptions(false);
+       // Close the dropdown on logout
     };
     
 
@@ -123,17 +135,12 @@ function Home() {
                         <IoSearch />
                     </button>
                 </div>
-                {loggedInUser ? (
+                {token ? (
                     <div className="relative">
-                        <img
-                            src={loggedInUser.profileImage}
-                            alt="User Profile"
-                            className="w-8 h-8 rounded-full cursor-pointer"
-                            onClick={toggleProfileOptions}
-                        />
+                        <button className='p-1 px-3 rounded-full bg-[#ff0000] text-white' onClick={toggleProfileOptions} >  {userName?.charAt(0).toUpperCase() || 'U'}</button>
                         {showProfileOptions && (
                             <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg">
-                                <button
+                                <button 
                                     className="w-full px-4 py-2 text-left hover:bg-gray-100"
                                    
                                 >Create Channel</button>
@@ -150,7 +157,7 @@ function Home() {
                         onClick={openModal}
                     >
                         <FaRegUserCircle className="text-lg" />
-                        <span>Sign In</span>
+                       <span>Sign In</span>
                     </button>
                 )}
             </header>
