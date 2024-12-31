@@ -30,7 +30,7 @@ MongoDB server (local or MongoDB Atlas for cloud-based MongoDB)
 Installation
 Clone the repository
 
-git clone https:
+git clone https:https://github.com/CMYTHILISREE/YoutubeClone.git
 
 Backend Setup
 
