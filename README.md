@@ -38,7 +38,7 @@ npm install
 
 Frontend Setup
 
-cd ../client npm install
+cd vite-project/clientFrontEnd -> npm install -> npm run dev
 
 Environment Variables Create a .env file in the backend directory with the following variables:
 
